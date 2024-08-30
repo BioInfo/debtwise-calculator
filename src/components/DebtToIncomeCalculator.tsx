@@ -33,9 +33,22 @@ const schema = z.object({
 
 const DebtToIncomeCalculator: React.FC = () => {
   const [ratio, setRatio] = useState<number | null>(null);
-  const { register, handleSubmit, formState: { errors } } = useForm<FormInputs>({
+  const { register, handleSubmit, formState: { errors }, watch } = useForm<FormInputs>({
     resolver: zodResolver(schema),
+    defaultValues: {
+      monthlyGrossIncome: 0,
+      currentRentMortgage: 0,
+      newMortgagePayment: 0,
+      carPayment: 0,
+      creditCards: 0,
+      studentLoans: 0,
+      personalLoans: 0,
+      otherDebts: 0,
+      includeNewMortgage: false,
+    },
   });
+
+  const includeNewMortgage = watch('includeNewMortgage');
 
   const onSubmit: SubmitHandler<FormInputs> = (data) => {
     const totalDebts = 
@@ -152,8 +165,8 @@ const DebtToIncomeCalculator: React.FC = () => {
       {ratio !== null && (
         <div className="mt-6 p-4 bg-gray-100 rounded-md">
           <h2 className="text-xl font-semibold mb-2">Result</h2>
-          <p>Your Debt-to-Income Ratio: {ratio.toFixed(2)}%</p>
-          <p>Classification: <span className={`font-bold ${
+          <p className="text-lg">Your Debt-to-Income Ratio: <span className="font-bold">{ratio.toFixed(2)}%</span></p>
+          <p className="text-lg">Classification: <span className={`font-bold ${
             ratio <= 36 ? 'text-green-600' : ratio <= 43 ? 'text-yellow-600' : 'text-red-600'
           }`}>{getRatioClassification(ratio)}</span></p>
         </div>
