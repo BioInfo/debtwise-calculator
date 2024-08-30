@@ -7,7 +7,7 @@ import { navItems } from "./nav-items";
 
 const queryClient = new QueryClient();
 
-const App: React.FC = () => (
+const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <Toaster />
