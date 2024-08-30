@@ -2,17 +2,19 @@ import React from 'react';
 import { HomeIcon } from "lucide-react";
 import Index from "./pages/Index";
 
-interface NavItem {
-  title: string;
-  to: string;
-  icon: React.ReactNode;
-  page: React.ReactNode;
-}
+/**
+ * @typedef {Object} NavItem
+ * @property {string} title
+ * @property {string} to
+ * @property {React.ReactNode} icon
+ * @property {React.ReactNode} page
+ */
 
 /**
  * Central place for defining the navigation items. Used for navigation components and routing.
+ * @type {NavItem[]}
  */
-export const navItems: NavItem[] = [
+export const navItems = [
   {
     title: "Home",
     to: "/",
